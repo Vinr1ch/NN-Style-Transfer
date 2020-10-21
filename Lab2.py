@@ -159,7 +159,7 @@ def styleTransfer():
     style_reference_image = preprocessData(STYLE_IMG_PATH)
     combination_image = tf.Variable(preprocessData(CONTENT_IMG_PATH))
 
-    iterations = 100
+    iterations = 1000
     for i in range(1, iterations + 1):
         loss, grads = computeLossAndGradients(
             combination_image, base_image, style_reference_image
@@ -191,7 +191,7 @@ def main():
     tData = preprocessData(raw[2])   # Transfer image.
     '''
     styleTransfer()
-    print("Done. Goodbye.")
+    print("Done. Goodbye Lemon.")
 
 
 
