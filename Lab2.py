@@ -84,8 +84,8 @@ def totalLoss(x):
 
 
 
-def computeLoss(combination_image, base_image, style_reference_image):
-    input_tensor = tf.concat([base_image, style_reference_image, combination_image], axis=0)
+def computeLoss(combImage, baseImage, styleImage):
+    input_tensor = tf.concat([baseImage, styleImage, combImage], axis=0)
     features = finder(input_tensor)
 
     # make first loss
@@ -105,14 +105,14 @@ def computeLoss(combination_image, base_image, style_reference_image):
         loss += (STYLE_WEIGHT / len(styleLayerNames)) * sl
 
     # Add total variation loss
-    loss += TOTAL_WEIGHT * totalLoss(combination_image)
+    loss += TOTAL_WEIGHT * totalLoss(combImage)
     return loss
 
 #used to call compute loss and gradient
-def computeLossAndGradients(combination_image, base_image, style_reference_image):
+def computeLossAndGradients(combImage, baseImage, styleImage):
     with tf.GradientTape() as tape:
-        loss = computeLoss(combination_image, base_image, style_reference_image)
-    grads = tape.gradient(loss, combination_image)
+        loss = computeLoss(combImage, baseImage, styleImage)
+    grads = tape.gradient(loss, combImage)
     return loss, grads
 
 
@@ -155,19 +155,17 @@ def styleTransfer():
     print("   Beginning transfer.")
     optimizer = keras.optimizers.SGD(keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=100.0, decay_steps=100, decay_rate=0.94))
 
-    base_image = preprocessData(CONTENT_IMG_PATH)
-    style_reference_image = preprocessData(STYLE_IMG_PATH)
-    combination_image = tf.Variable(preprocessData(CONTENT_IMG_PATH))
+    baseImage = preprocessData(CONTENT_IMG_PATH)
+    styleImage = preprocessData(STYLE_IMG_PATH)
+    combImage = tf.Variable(preprocessData(CONTENT_IMG_PATH))
 
     iterations = 1000
     for i in range(1, iterations + 1):
-        loss, grads = computeLossAndGradients(
-            combination_image, base_image, style_reference_image
-        )
-        optimizer.apply_gradients([(grads, combination_image)])
+        loss, grads = computeLossAndGradients(combImage, baseImage, styleImage)
+        optimizer.apply_gradients([(grads, combImage)])
         if i % 100 == 0:
             print("Iteration %d: loss=%.2f" % (i, loss))
-            img = deprocess_image(combination_image.numpy())
+            img = deprocess_image(combImage.numpy())
             fname = result_prefix + "_at_iteration_%d.png" % i
             keras.preprocessing.image.save_img(fname, img)
     print("   Transfer complete.")
