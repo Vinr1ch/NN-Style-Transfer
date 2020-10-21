@@ -1,0 +1,25 @@
+Name: Colin Vinarci
+Username: cvinarci
+
+
+Lab 2: Style Transfer
+
+Due: 10-21-2020
+
+
+Git Repo: https://github.com/arcosin/CS390-NIP_Lab2_skeleton/blob/master/Lab2/Lab2.py
+
+
+In this lab, you will use a style and content image of your choice, as well as a program that you write to perform a style transfer. For more information on style transfers re-read the slides:
+
+https://docs.google.com/presentation/d/e/2PACX-1vRWrPIn5AHjjMYkEi7o44ZNvt_qqhly65Ep9YrsD5UBp6aPvFLQX7Q1v-1LSEe-FQiKY2KzjsNA3-p8/pub?start=false&loop=false&delayms=3000&slide=id.p
+
+
+Also, read the paper this project is based on:
+
+https://arxiv.org/pdf/1508.06576.pdf
+
+
+Your style and content image should both be 500x500 pixels. Your style image can be any piece of art you want. It will be best if its fairly stylized, but not too abstract. If you can’t find one you prefer, use Starry Night by Vincent Van Gogh. Your content image should be a real and unedited picture (besides cropping, resizing, etc). This can be taken from online or it can be a picture you took.
+
+For this lab, you should email me a link to the git repo as usual. You should also attach the input images and your favorite output image. All of the transferred images will be shown in class (neural net art show!) so feel free to send extra. To get the full grade for this project, you will need a fully working program and all of the attached images. You can get partial credit for code that is almost working. A full grade breakdown will not be included for this reason.
